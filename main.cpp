@@ -18,7 +18,7 @@ int WinMain(HINSTANCE hInstance, HINSTANCE hPrevInstance, LPSTR lpCmdLine, int n
     
     tray.SetOnLeftClick(&onTrayIconClick);
 
-    if (SetWinEventHook(EVENT_OBJECT_SHOW, EVENT_OBJECT_NAMECHANGE, NULL, &WinEventProc, 0, 0, 0))
+    if (SetWinEventHook(EVENT_OBJECT_NAMECHANGE, EVENT_OBJECT_NAMECHANGE, NULL, &WinEventProc, 0, 0, 0))
     {
         MSG msg = {};
         while (GetMessage(&msg, 0, 0, 0)){}        
