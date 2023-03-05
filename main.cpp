@@ -18,7 +18,7 @@ void onTrayIconClick(const POINT& pos)
 
 int WinMain(HINSTANCE hInstance, HINSTANCE hPrevInstance, LPSTR lpCmdLine, int nShowCmd)
 {    
-    UserNotifier tray(LoadIconW(GetModuleHandle(NULL), MAKEINTRESOURCE(IDI_APPICON)), L"HideTeamsInMeetPopup is running.\nLeft-Click on this icon to close.");    
+    UserNotifier tray(LoadIconW(GetModuleHandle(NULL), MAKEINTRESOURCE(IDI_APPICON)), L"HideTeamsInMeetPopup v1.2 is running.\nLeft-Click on this icon to close.");    
     tray.SetOnLeftClick(&onTrayIconClick);
 
     HWND hPopup = NULL;
