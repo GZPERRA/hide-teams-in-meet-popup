@@ -36,10 +36,18 @@ int WinMain(HINSTANCE hInstance, HINSTANCE hPrevInstance, LPSTR lpCmdLine, int n
 
 bool IsWindowTeamsInMeetPopup(HWND hWindow)
 {
-    char name[33];
-    GetWindowTextA(hWindow, name, 33);
-    
-    return strncmp(name, "Microsoft Teams Call in progress", 32) == 0;
+    char className[100];
+    GetClassNameA(hWindow, className, 100);
+
+    HWND firstChild = GetWindow(hWindow, GW_CHILD);
+    char childTitle[100];
+
+    GetWindowTextA(firstChild, childTitle, 100);
+
+    LONG styles = GetWindowLongA(hWindow, GWL_STYLE);
+    bool isMainWindow = (styles & WS_THICKFRAME) && (styles & WS_MAXIMIZEBOX);
+
+    return !isMainWindow && IsWindowVisible(hWindow) && strncmp(className, "Chrome_WidgetWin_1", 18) == 0 && strncmp(childTitle, "Chrome Legacy Window", 20) == 0;
 }
 
 void HideTeamsInMeetPopup(HWND hPopup)
