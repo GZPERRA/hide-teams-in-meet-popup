@@ -54,8 +54,7 @@ void HideTeamsInMeetPopup(HWND hPopup)
 {
     if (hPopup)
     {
-        CloseWindow(hPopup);
-        ShowWindow(hPopup, SW_HIDE);
+        ShowWindow(hPopup, SW_HIDE); 
     }
 }
 
