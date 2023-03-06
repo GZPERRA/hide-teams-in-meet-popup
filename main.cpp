@@ -47,7 +47,7 @@ bool IsWindowTeamsInMeetPopup(HWND hWindow)
     LONG styles = GetWindowLongA(hWindow, GWL_STYLE);
     bool isMainWindow = (styles & WS_THICKFRAME) && (styles & WS_MAXIMIZEBOX);
 
-    return !isMainWindow && IsWindowVisible(hWindow) && strncmp(className, "Chrome_WidgetWin_1", 18) == 0 && strncmp(childTitle, "Chrome Legacy Window", 20) == 0;
+    return !isMainWindow && strncmp(className, "Chrome_WidgetWin_1", 18) == 0 && strncmp(childTitle, "Chrome Legacy Window", 20) == 0;
 }
 
 void HideTeamsInMeetPopup(HWND hPopup)
