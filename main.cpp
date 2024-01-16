@@ -36,18 +36,35 @@ int WinMain(HINSTANCE hInstance, HINSTANCE hPrevInstance, LPSTR lpCmdLine, int n
 
 bool IsWindowTeamsInMeetPopup(HWND hWindow)
 {
-    char className[100];
-    GetClassNameA(hWindow, className, 100);
-
-    HWND firstChild = GetWindow(hWindow, GW_CHILD);
-    char childTitle[100];
-
-    GetWindowTextA(firstChild, childTitle, 100);
-
     LONG styles = GetWindowLongA(hWindow, GWL_STYLE);
     bool isMainWindow = (styles & WS_THICKFRAME) && (styles & WS_MAXIMIZEBOX);
 
-    return !isMainWindow && strncmp(className, "Chrome_WidgetWin_1", 18) == 0 && strncmp(childTitle, "Chrome Legacy Window", 20) == 0;
+    if (isMainWindow)
+        return false;
+
+    char className[100];
+    GetClassNameA(hWindow, className, 100);
+
+    bool isUsingNewTeams = 0 == strncmp(className, "TeamsWebView", 12) || NULL != FindWindowA("TeamsWebView", NULL);
+
+    HWND firstChild = GetWindow(hWindow, GW_CHILD);
+
+    if (isUsingNewTeams)
+    {
+        char firstChildClass[100];
+        GetClassNameA(firstChild, firstChildClass, 100);
+
+        return 0 == strncmp(firstChildClass, "Chrome_WidgetWin_0", 18);
+    }
+    else
+    {
+        char firstChildTitle[100];
+        GetWindowTextA(firstChild, firstChildTitle, 100);
+
+        return 0 == strncmp(className, "Chrome_WidgetWin_1", 18) && 0 == strncmp(firstChildTitle, "Chrome Legacy Window", 20);
+    }
+
+    return false;
 }
 
 void HideTeamsInMeetPopup(HWND hPopup)
