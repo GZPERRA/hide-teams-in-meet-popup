@@ -53,8 +53,8 @@ bool IsWindowTeamsInMeetPopup(HWND hWindow)
     {
         char firstChildClass[100];
         GetClassNameA(firstChild, firstChildClass, 100);
-
-        return 0 == strncmp(firstChildClass, "Chrome_WidgetWin_0", 18);
+        
+        return 0 == strncmp(firstChildClass, "TeamsOverlay", 12) || 0 == strncmp(firstChildClass, "Chrome_WidgetWin_0", 18);
     }
     else
     {
